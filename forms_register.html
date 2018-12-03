@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Register</title>
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
+    <link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
+    <script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+    <script src="https://unpkg.com/jquery/dist/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+
+    <style type="text/css">
+        .page__background.page--material__background{
+            background-color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <ons-page>
+        <ons-tabbar swipeable position="auto" style="padding:10px;background:#2980b9;">
+            <ons-tab page="guruRegist" label="GURU" icon="fa-user-graduate" active>
+            </ons-tab>
+            <ons-tab page="siswaRegist" label="SISWA" icon="fa-user">
+            </ons-tab>
+        </ons-tabbar>
+    </ons-page>
+        
+    <template id="guruRegist">
+        <ons-page id="Tab1">
+            <div style="text-align: center; margin-top: 60px;">
+                <p>
+                    <ons-icon icon="md-account-circle" style="margin-right:7px;"></ons-icon>
+                    <ons-input id="NIP" modifier="material underbar" placeholder="NIP" float></ons-input>
+                </p>
+                <p style="margin-top:24px;">
+                    <ons-icon icon="md-border-color" style="margin-right:7px;"></ons-icon>
+                    <ons-input id="usernameGuru" modifier="material underbar" placeholder="Nama Lengkap" float></ons-input>
+                </p>
+                <p style="margin-top:24px;">
+                    <ons-icon icon="md-key" style="margin-right:7px;"></ons-icon>
+                    <ons-input id="passwordGuru" modifier="material underbar" type="password" placeholder="Password" float></ons-input>
+                </p>
+                <p style="margin-top:24px;">
+                    <ons-icon icon="md-book" style="margin-right:7px;"></ons-icon>
+                    <ons-input id="namaMapel" modifier="material underbar" placeholder="Nama Mata Pelajaran" float></ons-input>
+                </p>
+                <p style="margin-top:24px;">
+                    <ons-icon icon="md-code" style="margin-right:7px;"></ons-icon>
+                    <ons-input id="kodeMapel" modifier="material underbar" placeholder="Kode Mata Pelajaran" float></ons-input>
+                </p>
+                <p style="margin-top: 100px;">
+                    <ons-button id="daftarGuru" style="background: #2980b9;">Sign Up</ons-button>
+                </p>
+            </div>
+        </ons-page>
+    </template>
+        
+    <template id="siswaRegist">
+        <ons-page id="Tab2">
+            <div style="text-align: center; margin-top: 60px; padding: 0;">
+                <p>
+                    <ons-icon icon="md-account-circle" style="margin-right:7px;"></ons-icon>
+                    <ons-input id="NIP" modifier="material underbar" placeholder="NIS" float></ons-input>
+                </p>
+                <p style="margin-top:24px;">
+                    <ons-icon icon="md-border-color" style="margin-right:7px;"></ons-icon>
+                    <ons-input id="usernameSiswa" modifier="material underbar" placeholder="Nama Lengkap" float></ons-input>
+                </p>
+                <p style="margin-top:24px;">
+                    <ons-icon icon="md-key" style="margin-right:7px;"></ons-icon>
+                    <ons-input id="passwordSiswa" modifier="material underbar" type="password" placeholder="Password" float></ons-input>
+                </p>
+                <p style="margin-top: 200px;">
+                <ons-button id="daftarMurid" style="background: #2980b9;">Sign Up</ons-button>
+                </p>
+            </div>
+        </ons-page>
+    </template>
+
+<script src="js/app.js" type="text/javascript">
+    
+</script>
+
+</body>
+</html>

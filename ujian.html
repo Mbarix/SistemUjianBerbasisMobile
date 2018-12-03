@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" type="text/css" />
+    <script src="https://code.jquery.com/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+</head>
+
+<body>
+    <!-- Start of first page -->
+    <div data-role="page" id="page-one">
+
+
+
+        <button> 
+            
+        </button>
+
+        <div>
+            <table style="width: 100%">
+                <tr>
+                    <td>
+                        <p id="p_no">No </p>
+                    </td>
+                    <td>
+                        <p id="p_soal">soal</p>
+                    </td>
+
+                </tr>
+
+            </table>
+
+
+        </div>
+
+
+        <button id="btn_pila"><p id="p_pila">pila</p><br></button>
+        <button id="btn_pilb"><p id="p_pilb">pilb</p><br></button>
+        <button id="btn_pilc"><p id="p_pilc">pilc</p><br></button>
+        <button id="btn_pild"><p id="p_pild">pild</p><br></button>
+        <table style="width: 100%">
+            <tr>
+                <td>
+                    <button id="btn_prev">Prev</button>
+                </td>
+                <td>
+                    <button id="btn_next">Next</button>
+                </td>
+            </tr>
+        </table>
+        <a href="#page-hasil">
+            <button id="btn_submit">Submit</button>
+        </a>
+
+    </div>
+    <div data-role="page" id="page-hasil">
+        <p id="p_hasil">hasil : </p>
+
+    </div>
+
+
+    <script type="text/javascript">
+        var soal = new Array();
+        var pila = new Array();
+        var pilb = new Array();
+        var pilc = new Array();
+        var pild = new Array();
+        var jawaban = new Array();
+        var jawabanMurid = new Array();
+        var nomorSoal = 1;
+        var jumlahSoal = 1;
+        var jumlahSoalBenar = 0;
+        var kodeUjian = 'SOAL21'; //ANGGEP UDAH DAPET
+
+        var vnomor = document.getElementById("p_no");
+        var vsoal = document.getElementById("p_soal");
+        var vpila = document.getElementById("p_pila");
+        var vpilb = document.getElementById("p_pilb");
+        var vpilc = document.getElementById("p_pilc");
+        var vpild = document.getElementById("p_pild");
+        var vhasil = document.getElementById("p_hasil");
+
+        var Application = {
+            initApplication: function() {
+                $(window).load('pageinit', '#page-one', function() {
+                    Application.initGetData();
+                })
+                $(document).on('click', '#btn_next', function() {
+                    Application.initNextSoal();
+                })
+                $(document).on('click', '#btn_prev', function() {
+                    Application.initPrevSoal();
+                })
+                $(document).on('click', '#btn_pila', function() {
+                    Application.initPilA();
+                })
+                $(document).on('click', '#btn_pilb', function() {
+                    Application.initPilB();
+                })
+                $(document).on('click', '#btn_pilc', function() {
+                    Application.initPilC();
+                })
+                $(document).on('click', '#btn_pild', function() {
+                    Application.initPilD();
+                })
+                $(document).on('click', '#btn_submit', function() {
+                    Application.initSubmit();
+                })
+            },
+            initGetData: function() {
+                $.ajax({
+                    url: 'https://app-1542614776.000webhostapp.com/project%20PPK/web_service_soal.php',
+                    type: 'get',
+                    beforeSend: function() {
+                        $.mobile.loading('show', {
+                            text: 'Please wait while retrieving data...',
+                            textVisible: true
+                        });
+                    },
+                    success: function(dataObject) {
+                        for (let i = 0; i < dataObject.length; i++) {
+                            if (dataObject[i].KodeUjian == kodeUjian) {
+                                soal.push(dataObject[i].Soal);
+                                pila.push(dataObject[i].PilihanA);
+                                pilb.push(dataObject[i].PilihanB);
+                                pilc.push(dataObject[i].PilihanC);
+                                pild.push(dataObject[i].PilihanD);
+                                jawaban.push(dataObject[i].Jawaban);
+                                jawabanMurid.push("");
+                            }
+                        }
+                        vnomor.innerHTML = 1;
+                        vsoal.innerHTML = soal[0];
+                        vpila.innerHTML = "a. " + pila[0];
+                        vpilb.innerHTML = "b. " + pilb[0];
+                        vpilc.innerHTML = "c. " + pilc[0];
+                        vpild.innerHTML = "d. " + pild[0];
+                        jumlahSoal = soal.length;
+                    },
+                    complete: function() {
+                        $.mobile.loading('hide');
+                    }
+                });
+            },
+            initNextSoal: function() {
+                if (nomorSoal != jumlahSoal) {
+                    nomorSoal++;
+                    vnomor.innerHTML = nomorSoal;
+                    vsoal.innerHTML = soal[nomorSoal - 1];
+                    vpila.innerHTML = "a. " + pila[nomorSoal - 1];
+                    vpilb.innerHTML = "b. " + pilb[nomorSoal - 1];
+                    vpilc.innerHTML = "c. " + pilc[nomorSoal - 1];
+                    vpild.innerHTML = "d. " + pild[nomorSoal - 1];
+                }
+            },
+            initPrevSoal: function() {
+                if (nomorSoal != 1) {
+                    nomorSoal--;
+                    vnomor.innerHTML = nomorSoal;
+                    vsoal.innerHTML = soal[nomorSoal - 1];
+                    vpila.innerHTML = "a. " + pila[nomorSoal - 1];
+                    vpilb.innerHTML = "b. " + pilb[nomorSoal - 1];
+                    vpilc.innerHTML = "c. " + pilc[nomorSoal - 1];
+                    vpild.innerHTML = "d. " + pild[nomorSoal - 1];
+                }
+            },
+            initPilA: function() {
+                jawabanMurid[nomorSoal - 1] = pila[nomorSoal - 1];
+            },
+            initPilB: function() {
+                jawabanMurid[nomorSoal - 1] = pilb[nomorSoal - 1];
+            },
+            initPilC: function() {
+                jawabanMurid[nomorSoal - 1] = pilc[nomorSoal - 1];
+            },
+            initPilD: function() {
+                jawabanMurid[nomorSoal - 1] = pild[nomorSoal - 1];
+            },
+            initSubmit: function() {
+                jumlahSoalBenar = 0;
+                for (let i = 0; i < soal.length; i++) {
+                    if (jawaban[i] == jawabanMurid[i]) {
+                        jumlahSoalBenar++;
+                    }
+                }
+                vhasil.innerHTML = "hasil : " + jumlahSoalBenar;
+            }
+        }
+        Application.initApplication();
+    </script>
+</body>
+
+</html>

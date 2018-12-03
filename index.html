@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+    <title>Log in</title>
+
+    <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.15.1/jquery.validate.js"></script>
+
+    <!-- Mobiscroll JS and CSS Includes -->
+    <link rel="stylesheet" href="css/mobiscroll.jquery.min.css">
+    <script src="js/mobiscroll.jquery.min.js"></script>
+
+    <style type="text/css">
+        body{
+            background: #2980b9;
+        }
+        #formLogin{
+            background: #2980b9;
+        }
+        .center {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 50%;
+        }
+    </style>
+
+</head>
+<body>
+    <div class="demo-login">
+        <form id="formLogin" class="md-login-form" mbsc-form>
+            <img src="img/LogoPPK.png" id="LogoPPK" style="width: 130px;height: 130px;margin-top: 25px;" class="center">
+            <h2 style="color:white;margin: 10%;text-align: center;">Sistem Ujian Berbasis Mobile</h2>
+            <div class="mbsc-form-group-inset">
+                <label>
+                    <input id="idUser" type="text" name="idUser" placeholder="NIP/NIS" />
+                </label>
+                <label>
+                    <input name="password" type="text" id="passwordUser" placeholder="Password" data-password-toggle="false" data-icon="none" data-icon-align="right" />
+                </label>
+            </div>
+            <div class="mbsc-form-group-inset mbsc-padding" style="color: #2980b9;">
+                <button class="mbsc-btn-block md-signup-btn" type="submit" id="login">Sign in</button>
+            </div>
+            <div class="mbsc-form-group-inset mbsc-padding mbsc-align-center" style="color: white;">
+                Don't have an account yet? <a href="forms_register.html" class="md-signup" style="color: white;">Sign up.</a>
+            </div>
+        </form>
+    </div>
+
+    <script type="text/javascript">
+        //tema mobiscroll
+        mobiscroll.settings = {
+            theme: 'ios'
+        };
+    
+        //validasi
+        $(function () {
+            var isLogin = false;
+            
+            $('#formLogin').on('submit', function (ev) {
+                if ($(this).valid()) {
+                    ev.preventDefault();
+                    $('#formLogin-success').mobiscroll('show');
+                }
+            }).validate({
+                errorClass: 'mbsc-err-msg',
+                errorPlacement: function (error, element) {
+                    element.parent().append(error);
+                },
+                highlight: function (element) {
+                    $(element).closest('.mbsc-input').addClass("mbsc-err");
+                },
+                unhighlight: function (element) {
+                    $(element).closest('.mbsc-input').removeClass("mbsc-err");
+                },
+                rules: {
+                    "idUser": {
+                        required: true
+                    },
+                    "password": {
+                        required: true
+                    }
+                },
+                messages: {
+                    "idUser": {
+                        required: "NIP/NIS Wajib Diisi",
+                    },
+                    "password": {
+                        required: 'Password Wajib Diisi'
+                    }
+                }
+            });
+        });
+
+    </script>
+    <script src="js/app.js" type="text/javascript"> </script>
+</body>
+</html>

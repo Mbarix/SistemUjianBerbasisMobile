@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>API SOAL</title>
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" type="text/css"/>
+    <script src="https://code.jquery.com/jquery-1.8.3.js" type="text/javascript"></script>
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js" type="text/javascript"></script>
+    <!-- <script src="app.js" type="text/javascript"></script> -->
+
+</head>
+
+    <style type="text/css">
+        body{
+            background-color: #2980b9;
+            background: #2980b9;
+        }
+
+        #menu-guru{
+            background-color: #2980b9;
+            background: #2980b9;
+        }
+
+        #edit-guru, #soal, #kepala{
+            background-color: #ffffff;
+            color: #2980b9;
+        }
+
+        .ui-header.ui-bar-inherit{
+            background-color: #ffffff;
+            color: #2980b9;
+        }
+
+        #halaman-mengelola-soal, #halaman-mengelola-detail-soal, #halaman-tambah-soal, #halaman-update-soal{
+            background-color: #2980b9;
+        }
+
+        #tambah-soal{
+            background-color: #ffffff;
+            color: #2980b9;
+        }
+
+        h4{
+            color: #ffffff;
+        }
+
+        #tambah-soal-baru, #update-soal{
+            margin-top: 30px;
+        }
+
+        #tabel-detail-soal{
+            color: #ffffff;
+        }
+
+    </style>
+
+<body>
+
+    <div data-role="page" id="menu-guru" data-theme="a">
+
+        <div id="kapala" data-role="header">
+            <h1>Menu Guru</h1>
+        </div>
+
+        <div role="main" class="ui-content">    
+            <button id="edit-guru">EDIT PROFIL</button>
+            <button id="soal">SOAL</button>          
+        </div>
+
+    </div>
+
+
+	<!--Halaman Mengelola Soal-->
+    <div data-role="page" id="halaman-mengelola-soal" data-theme="a">
+
+        <div data-role="header">
+            <h1>Daftar Soal</h1>
+        </div>
+
+        <div role="main" class="ui-content">
+            <button id="tambah-soal">TAMBAH SOAL</button>
+            <ul id="list-soal" data-role="listview" data-inset="true" data-filter="true"></ul>       
+        </div>
+
+    </div>
+
+    <!--Halaman Mengelola Detail Soal-->
+    <div data-role="page" id="halaman-mengelola-detail-soal" data-theme="a">
+
+        <div data-role="header">
+            <h1>Detail Soal</h1>
+        </div>
+
+        <table data-role="table" data-mode="reflow" class="ui-responsive" id="tabel-detail-soal">
+            <thead>
+                <tr>
+                    <th data-priority="1">ID Soal</th>
+                    <th data-priority="2">Soal</th>
+                    <th data-priority="3">PilihanA</th>
+                    <th data-priority="3">PilihanB</th>
+                    <th data-priority="3">PilihanC</th>
+                    <th data-priority="3">PilihanD</th>
+                    <th data-priority="5">Jawaban</th>
+                    <th data-priority="6">Kode Ujian</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+        <button id="edit-soal">EDIT SOAL</button>
+        <button id="hapus-soal">HAPUS SOAL</button>
+        
+    </div>
+
+     <!--Halaman Tambah Soal-->
+    <div data-role="page" id="halaman-tambah-soal" data-theme="a">
+
+        <div data-role="header">
+            <h1>Tambah Soal</h1>
+        </div>
+
+        <div role="main" class="ui-content">
+            <form id="form-tambah-soal">
+                <h4>Soal</h4>
+                <input type="text" id="soal-tambah" required="true">
+                <h4>Piihan A</h4>
+                <input type="text" id="pilihan-a-tambah" required="true">
+                <h4>Piihan B</h4>
+                <input type="text" id="pilihan-b-tambah" required="true">
+                <h4>Piihan C</h4>
+                <input type="text" id="pilihan-c-tambah" required="true">
+                <h4>Piihan D</h4>
+                <input type="text" id="pilihan-d-tambah" required="true">
+                <h4>Jawaban</h4>
+                <input type="text" id="jawaban-tambah" required="true">
+                <h4>Kode Ujian</h4>
+                <input type="text" id="kode-ujian-tambah" required="true">
+            </form>   
+            <button id="tambah-soal-baru">SUBMIT</button>
+            
+        </div>
+
+    </div>
+
+     <!--Halaman Update Soal-->
+    <div data-role="page" id="halaman-update-soal" data-theme="a">
+
+        <div data-role="header">
+            <h1>Edit Soal</h1>
+        </div>
+
+        <div role="main" class="ui-content">
+            <form id="form-update-soal">
+                <h4>Soal</h4>
+                <input type="text" id="soal-update" required="true">
+                <h4>Piihan A</h4>
+                <input type="text" id="pilihan-a-update" required="true">
+                <h4>Piihan B</h4>
+                <input type="text" id="pilihan-b-update" required="true">
+                <h4>Piihan C</h4>
+                <input type="text" id="pilihan-c-update" required="true">
+                <h4>Piihan D</h4>
+                <input type="text" id="pilihan-d-update" required="true">
+                <h4>Jawaban</h4>
+                <input type="text" id="jawaban-update" required="true">
+            </form>   
+            <button id="update-soal">UPDATE SOAL</button>
+            
+        </div>
+
+    </div>
+    
+<script src="js/app.js" type="text/javascript">
+    
+</script>
+</body>
+</html>

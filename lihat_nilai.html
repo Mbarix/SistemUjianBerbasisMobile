@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="vue.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script> -->
+    <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+
+</head>
+
+<body>
+    <link rel="stylesheet" href="OnsenUI-OnsenUI-dist-f1c4a90/css/onsen-css-components.css">
+    <script src="OnsenUI-OnsenUI-dist-f1c4a90/js/onsenui.js"></script>
+    <ons-page id="daftarNilai">
+        <ons-toolbar>
+            <div class="center">Daftar Nilai</div>
+        </ons-toolbar>
+        <ons-page id="nilai" data-role="page" class="ui-responsive">
+            <ons-card v-for="item in items" :key="item.id">
+                <ons-list-item expandable>
+                    <ons-col>
+                        <ons-row>
+                            Nama
+                        </ons-row>
+                        <ons-row>
+                            :
+                        </ons-row>
+                        <ons-row>
+                            {{item.Nama}}
+                        </ons-row>
+                    </ons-col>
+                    <div class="expandable-content">
+                        <ons-col>
+                            <ons-row>
+                                Nilai </ons-row>
+                            <ons-row>
+                                : </ons-row>
+                            <ons-row>
+                                {{item.Nilai}}
+                            </ons-row>
+                        </ons-col>
+                        <ons-col>
+                            <a href="#detailNilai">
+                                <button class="button--large--material" style="width: 95%; margin: 0 auto; margin: 10">Edit</button>
+                            </a>
+
+                        </ons-col>
+                    </div>
+                </ons-list-item>
+            </ons-card>
+        </ons-page>
+        <!-- Modal -->
+        <div id="detailNilai" data-role="page" class="ui-content-responsive">
+            <table data-role="table" data-mode="reflow" class="ui-responsive">
+                <thead>
+                    <tr>
+                        <th data-priority="1">Nama</th>
+                        <th data-priority="2">NIS</th>
+                        <th data-priority="3">Nilai</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <input v-model="nama">
+                        </td>
+                        <td>
+                            <input v-model="nis">
+                        </td>
+                        <td>
+                            <input v-model="nilai">
+                        </td>
+                        <td>
+                            <a href="#nilai"><button class="ui-btn">Back</button></a>
+                            <a href="#"><button class="ui-btn"> Save</button></a>
+                        </td>
+                        <td>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </ons-page>
+    <!-- Modal ENd -->
+    <script>
+        // register modal component
+        var listNilai, listSiswa
+        $(document).ready(function() {
+            $.get("https://app-1542614776.000webhostapp.com/project%20PPK/web_service_nilai.php",
+                function(data, status) {
+                    listNilai = data
+                    $.get("https://app-1542614776.000webhostapp.com/project%20PPK/web_service_siswa.php",
+                        function(data, status) {
+                            listSiswa = data
+                            var combine
+                            for (let i = 0; i < listNilai.length; i++) {
+                                var nama;
+                                for (let index = 0; index < listSiswa.length; index++) {
+                                    if (listNilai[i].NIS == listSiswa[index].NIS) {
+                                        nama = listSiswa[index].NamaSiswa
+                                        combine.push({
+                                            Nama: nama,
+                                            Nilai: listNilai[i].Nilai
+                                        })
+                                    }
+
+                                }
+                                console.log("aalal")
+                            }
+
+                        })
+                })
+        })
+
+
+
+
+        var nilai = new Vue({
+            el: "#nilai",
+            data: {
+                show: true,
+                items: [{
+                    id: 1,
+                    Nama: "ZUlfikar",
+                    NIS: "123",
+                    Nilai: 100,
+                    edit: false
+                }, {
+                    id: 2,
+                    Nama: "ZUlfikar",
+                    NIS: "123",
+                    Nilai: 99,
+                    edit: true
+                }, {
+                    id: 3,
+                    Nama: "ZUlfikar",
+                    NIS: "123",
+                    Nilai: 10,
+                    edit: false
+                }],
+                showModal: false
+            },
+            methods: {
+                edit: function(data) {
+                    // $(":mobile-pagecontainer").pagecontainer("load", "#modal");
+                    modal.nama = data.Nama
+                    modal.nis = data.NIS
+                    modal.nilai = data.Nilai
+
+                },
+
+
+            }
+        })
+        var modal = new Vue({
+            el: "#detailNilai",
+            data: {
+                id: 0,
+                nama: "nama",
+                nis: "nis",
+                nilai: "nilai",
+                show: true
+            },
+            methods: {
+                update: function() {
+                    nilai.items[modal.id]
+                }
+            }
+        })
+    </script>
+
+</body>
+
+</html>
